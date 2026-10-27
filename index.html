@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Razan Adel – Senior Flutter Developer Portfolio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,800&family=JetBrains+Mono:wght@400;600&family=Cairo:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome & Tailwind CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        flutter: {
+                            blue: '#02569B',
+                            sky: '#01B5F8',
+                            cyan: '#40D0E0',
+                            navy: '#050C1A'
+                        },
+                        cyber: {
+                            gold: '#FFB800',
+                            orange: '#FF6B00',
+                            purple: '#8B5CF6',
+                            emerald: '#10B981'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        arabic: ['Cairo', 'sans-serif']
+                    },
+                    animation: {
+                        'marquee-left': 'marqueeLeft 45s linear infinite',
+                        'marquee-right': 'marqueeRight 45s linear infinite',
+                        'float': 'float 5s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        marqueeLeft: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' }
+                        },
+                        marqueeRight: {
+                            '0%': { transform: 'translateX(-50%)' },
+                            '100%': { transform: 'translateX(0%)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-12px) rotate(1deg)' }
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.3', filter: 'drop-shadow(0 0 20px rgba(1, 181, 248, 0.4))' },
+                            '50%': { opacity: '0.7', filter: 'drop-shadow(0 0 40px rgba(64, 208, 224, 0.8))' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Modern Scrollbars */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(5, 12, 26, 0.8); }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #01B5F8, #02569B); border-radius: 99px; }
+        ::-webkit-scrollbar-thumb:hover { background: #40D0E0; }
+
+        /* Glassmorphism Panels */
+        .glass-panel {
+            background: rgba(10, 20, 38, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(1, 181, 248, 0.4);
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 20px 45px -15px rgba(1, 181, 248, 0.3);
+        }
+
+        /* Dynamic Phone Mockup Frames */
+        .phone-mockup {
+            width: 240px;
+            height: 490px;
+            border-radius: 38px;
+            background: #030712;
+            border: 8px solid #1E293B;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 25px rgba(1, 181, 248, 0.2);
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        /* Landscape Phone Mockup Frame for Retail PC Stores POS */
+        .phone-mockup-landscape {
+            width: 320px;
+            height: 220px;
+            border-radius: 28px;
+            background: #030712;
+            border: 7px solid #1E293B;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 25px rgba(234, 179, 8, 0.2);
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .phone-mockup-lg {
+            width: 275px;
+            height: 560px;
+            border-radius: 44px;
+            border-width: 10px;
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85px;
+            height: 18px;
+            background: #1E293B;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            z-index: 30;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .phone-camera {
+            width: 7px;
+            height: 7px;
+            background: #0B132B;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .phone-speaker {
+            width: 28px;
+            height: 3px;
+            background: #0B132B;
+            border-radius: 2px;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            background: #000;
+            position: relative;
+        }
+
+        .phone-screen::-webkit-scrollbar { display: none; }
+
+        /* Neon Theme Variant */
+        body.theme-neon {
+            background-color: #020617 !important;
+            color: #F1F5F9;
+        }
+        body.theme-neon .text-gradient {
+            background: linear-gradient(135deg, #00F0FF, #FF007A, #FFB800);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Light Theme Variant */
+        body.theme-light {
+            background-color: #F8FAFC !important;
+            color: #0F172A;
+        }
+        body.theme-light .glass-panel {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(203, 213, 225, 0.8);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+        }
+        body.theme-light .glass-card {
+            background: #FFFFFF;
+            border-color: #E2E8F0;
+            color: #0F172A;
+        }
+        body.theme-light .phone-mockup {
+            border-color: #CBD5E1;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+
+        /* Gradient Accent Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #01B5F8 0%, #40D0E0 50%, #3B82F6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Ambient Cursor Glow Spotlight */
+        #cursor-glow {
+            pointer-events: none;
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(1, 181, 248, 0.14) 0%, rgba(2, 86, 155, 0.05) 50%, rgba(0,0,0,0) 70%);
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .marquee-container:hover .marquee-content {
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+
+<body class="bg-[#040814] text-slate-100 font-sans antialiased selection:bg-flutter-sky/30 selection:text-white relative overflow-x-hidden transition-colors duration-500">
+
+    <!-- Ambient Cursor Glow Effect -->
+    <div id="cursor-glow" class="hidden md:block"></div>
+
+    <!-- Background Grid Effect -->
+    <div class="fixed inset-0 bg-[linear-gradient(to_right,#1f293710_1px,transparent_1px),linear-gradient(to_bottom,#1f293710_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none z-0"></div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-50 px-4 sm:px-8 py-4 transition-all duration-300">
+        <div class="max-w-7xl mx-auto glass-panel rounded-2xl px-5 py-3.5 flex items-center justify-between shadow-2xl border border-slate-800/80">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-flutter-blue via-flutter-sky to-cyan-400 p-[2px] transform group-hover:rotate-12 transition-transform duration-300 shadow-lg shadow-flutter-sky/20">
+                    <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
+                        <i class="fa-brands fa-flutter text-flutter-sky text-xl group-hover:scale-110 transition-transform"></i>
+                    </div>
+                </div>
+                <div>
+                    <span class="font-extrabold text-lg sm:text-xl tracking-tight block leading-none text-white">Razan Adel</span>
+                    <span class="text-[10px] font-mono text-flutter-sky tracking-wider uppercase font-bold">Senior Flutter Engineer</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-bold text-slate-300">
+                <a href="#showcase" class="hover:text-flutter-sky transition-colors flex items-center gap-2"><i class="fa-solid fa-mobile-screen text-xs text-flutter-sky"></i> Showcase</a>
+                <a href="#portfolio" class="hover:text-flutter-sky transition-colors flex items-center gap-2"><i class="fa-solid fa-cubes text-xs text-flutter-sky"></i> Projects</a>
+                <a href="#skills" class="hover:text-flutter-sky transition-colors flex items-center gap-2"><i class="fa-solid fa-code text-xs text-flutter-sky"></i> Tech Stack</a>
+                <a href="#about" class="hover:text-flutter-sky transition-colors flex items-center gap-2"><i class="fa-solid fa-graduation-cap text-xs text-flutter-sky"></i> Experience</a>
+            </nav>
+
+            <!-- Action Controls -->
+            <div class="flex items-center gap-3">
+                <!-- Theme Selector -->
+                <div class="relative group">
+                    <button id="theme-btn" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-slate-300 hover:text-flutter-sky transition-colors" title="Switch Theme">
+                        <i class="fa-solid fa-palette text-sm"></i>
+                    </button>
+                    <div class="absolute right-0 mt-2 w-44 glass-panel rounded-xl py-2 hidden group-hover:block shadow-2xl border border-slate-700/50 z-50 text-left">
+                        <button onclick="setTheme('dark')" class="w-full px-4 py-2 text-xs text-left hover:bg-flutter-sky/10 flex items-center justify-between"><span class="w-2.5 h-2.5 rounded-full bg-flutter-sky"></span> Dark Cyber (Default)</button>
+                        <button onclick="setTheme('neon')" class="w-full px-4 py-2 text-xs text-left hover:bg-pink-500/10 flex items-center justify-between"><span class="w-2.5 h-2.5 rounded-full bg-pink-500"></span> Neon Sunset</button>
+                        <button onclick="setTheme('light')" class="w-full px-4 py-2 text-xs text-left hover:bg-slate-200/50 flex items-center justify-between text-slate-800"><span class="w-2.5 h-2.5 rounded-full bg-slate-800"></span> Glass Light</button>
+                    </div>
+                </div>
+
+                <!-- Direct Hire Button -->
+                <a href="mailto:razanadel013@gmail.com" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-flutter-blue via-flutter-sky to-cyan-400 hover:opacity-90 text-slate-950 font-extrabold text-xs sm:text-sm px-5 py-2.5 rounded-xl shadow-lg shadow-flutter-sky/25 transition-all duration-300 transform hover:-translate-y-0.5">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Contact Me</span>
+                </a>
+
+                <!-- Mobile Menu Toggle -->
+                <button id="mobile-menu-toggle" class="md:hidden w-10 h-10 rounded-xl glass-card flex items-center justify-center text-slate-300">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobile-menu" class="hidden md:hidden mt-3 max-w-7xl mx-auto glass-panel rounded-2xl p-5 border border-slate-700/50 flex-col gap-3 text-center">
+            <a href="#showcase" onclick="toggleMobileMenu()" class="py-2 hover:text-flutter-sky font-bold transition-colors">Showcase</a>
+            <a href="#portfolio" onclick="toggleMobileMenu()" class="py-2 hover:text-flutter-sky font-bold transition-colors">Published Projects</a>
+            <a href="#skills" onclick="toggleMobileMenu()" class="py-2 hover:text-flutter-sky font-bold transition-colors">Tech Stack</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="py-2 hover:text-flutter-sky font-bold transition-colors">Experience & Education</a>
+            <a href="mailto:razanadel013@gmail.com" class="w-full bg-gradient-to-r from-flutter-blue to-flutter-sky text-slate-950 font-extrabold py-3 rounded-xl text-sm mt-2">Email Razan Directly</a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 pt-6 pb-24">
+
+        <!-- HERO SECTION WITH AUTO-SCROLLING REAL SCREENSHOT SHOWCASE -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center min-h-[85vh]">
+            <div class="lg:col-span-7 space-y-8">
+                <!-- Status Badge -->
+                <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full glass-card border border-flutter-sky/40 text-xs font-mono text-flutter-sky font-bold shadow-lg">
+                    <span class="relative flex h-3 w-3">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-flutter-sky opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-3 w-3 bg-flutter-sky"></span>
+                    </span>
+                    Available for High-Impact Flutter Projects
+                </div>
+
+                <!-- Main Title & Typing Text -->
+                <div class="space-y-4">
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.12]">
+                        Crafting High-Performance <br>
+                        <span class="text-gradient">iOS & Android Applications</span>
+                    </h1>
+                    <div class="h-10 text-lg sm:text-2xl font-mono text-slate-300 flex items-center gap-2">
+                        <span>I specialize in</span>
+                        <span id="typing-text" class="text-flutter-sky font-extrabold"></span>
+                        <span class="animate-pulse text-flutter-sky font-extrabold">|</span>
+                    </div>
+                </div>
+
+                <p class="text-slate-300 text-base sm:text-lg max-w-2xl font-medium leading-relaxed">
+                    Hello! I'm <strong>Razan Adel</strong>, a Senior Flutter Developer based in Amman, Jordan. Computer Engineering student at <strong>The University of Jordan</strong> with years of hands-on production experience engineering and publishing <strong>9 real-world mobile apps</strong> live on the App Store and Google Play.
+                </p>
+
+                <!-- Action CTAs -->
+                <div class="flex flex-wrap items-center gap-4 pt-2">
+                    <a href="#showcase" class="px-7 py-4 rounded-xl bg-gradient-to-r from-flutter-blue via-flutter-sky to-cyan-400 hover:opacity-95 text-slate-950 font-extrabold text-sm sm:text-base shadow-xl shadow-flutter-sky/25 flex items-center gap-3 transform hover:-translate-y-1 transition-all">
+                        <i class="fa-solid fa-circle-play text-lg"></i> Explore Live App Screens
+                    </a>
+                    <a href="https://www.linkedin.com/in/razan-adel-45165737a" target="_blank" class="px-6 py-4 rounded-xl glass-card hover:bg-slate-800 text-slate-100 font-bold text-sm flex items-center gap-2 transition-all">
+                        <i class="fa-brands fa-linkedin text-xl text-flutter-sky"></i> LinkedIn Profile
+                    </a>
+                    <button onclick="copyToClipboard('razanadel013@gmail.com', 'Email copied!')" class="px-6 py-4 rounded-xl glass-card hover:bg-slate-800 text-slate-100 font-bold text-sm flex items-center gap-2 transition-all font-mono">
+                        <i class="fa-solid fa-copy text-emerald-400"></i> Copy Email
+                    </button>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-800/80">
+                    <div class="glass-card p-4 rounded-2xl text-center">
+                        <div class="text-3xl sm:text-4xl font-extrabold text-flutter-sky">9</div>
+                        <div class="text-xs text-slate-400 mt-1 font-bold">Published Apps</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl text-center">
+                        <div class="text-3xl sm:text-4xl font-extrabold text-cyan-400">4+</div>
+                        <div class="text-xs text-slate-400 mt-1 font-bold">Years Experience</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl text-center">
+                        <div class="text-3xl sm:text-4xl font-extrabold text-purple-400">100k+</div>
+                        <div class="text-xs text-slate-400 mt-1 font-bold">Active Downloads</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl text-center">
+                        <div class="text-3xl sm:text-4xl font-extrabold text-emerald-400">100%</div>
+                        <div class="text-xs text-slate-400 mt-1 font-bold">Clean Code & BLoC</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HERO INTERACTIVE PHONE SPOTLIGHT -->
+            <div class="lg:col-span-5 flex flex-col items-center justify-center relative">
+                <div class="absolute -inset-6 bg-gradient-to-r from-flutter-blue via-flutter-sky to-cyan-400 rounded-full blur-3xl opacity-25 animate-pulse-glow pointer-events-none"></div>
+
+                <div id="hero-phone-container" class="relative group cursor-pointer" onclick="openHeroModal()">
+                    <div id="hero-phone-frame" class="phone-mockup phone-mockup-lg transform group-hover:scale-[1.02] transition-transform duration-500 shadow-2xl">
+                        <div class="phone-notch"><div class="phone-camera"></div><div class="phone-speaker"></div></div>
+                        <div id="hero-phone-screen" class="phone-screen relative overflow-hidden">
+                            <!-- Dynamic Screen Injected Here -->
+                        </div>
+                        <div class="absolute bottom-3 left-4 right-4 h-1 bg-white/20 rounded-full overflow-hidden backdrop-blur-md z-30">
+                            <div id="hero-progress-bar" class="h-full bg-flutter-sky w-0 transition-all duration-100"></div>
+                        </div>
+                    </div>
+
+                    <div class="absolute -bottom-6 -right-4 glass-panel px-5 py-3 rounded-2xl shadow-2xl border border-flutter-sky/40 flex items-center gap-3 backdrop-blur-xl animate-float">
+                        <div class="w-10 h-10 rounded-xl bg-flutter-sky/20 flex items-center justify-center text-flutter-sky font-bold text-lg">
+                            <i id="hero-badge-icon" class="fa-solid fa-mobile-screen"></i>
+                        </div>
+                        <div>
+                            <div id="hero-app-title" class="text-xs font-bold text-white">Retail PC Stores</div>
+                            <div id="hero-app-sub" class="text-[10px] text-slate-400">Click to preview interactive gallery</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carousel Slide Controls -->
+                <div class="flex items-center gap-4 mt-10 z-20">
+                    <button onclick="prevHeroSlide()" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-slate-300 hover:text-flutter-sky hover:border-flutter-sky transition-all">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    
+                    <div id="hero-indicators" class="flex items-center gap-2"></div>
+
+                    <button onclick="nextHeroSlide()" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-slate-300 hover:text-flutter-sky hover:border-flutter-sky transition-all">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+
+                    <button id="play-pause-btn" onclick="toggleAutoPlay()" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-flutter-sky border-flutter-sky/50 transition-all" title="Toggle Auto Play">
+                        <i class="fa-solid fa-pause"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1: INFINITE AUTO-MOVING SCREENSHOT MARQUEE SLIDERS -->
+        <section id="showcase" class="space-y-8 pt-10">
+            <div class="text-center max-w-3xl mx-auto space-y-3">
+                <span class="text-xs font-mono uppercase tracking-widest text-flutter-sky font-bold">Interactive Screenshots Showcase</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold">Real Application Screenshots & UI Renders</h2>
+                <p class="text-slate-400 text-sm sm:text-base">Continuous live preview of real app layouts built for Retail PC Stores POS, Ezydars Teachers, Addustour Newspaper, Al-Basheq, GoldenMark, Sadad, and Ezydars.</p>
+            </div>
+
+            <!-- Track 1 (Left Direction) -->
+            <div class="marquee-container overflow-hidden relative w-full py-4 group">
+                <div class="absolute left-0 top-0 bottom-0 w-28 bg-gradient-to-r from-[#040814] to-transparent z-20 pointer-events-none"></div>
+                <div class="absolute right-0 top-0 bottom-0 w-28 bg-gradient-to-l from-[#040814] to-transparent z-20 pointer-events-none"></div>
+                
+                <div id="marquee-track-1" class="marquee-content flex gap-8 w-max animate-marquee-left"></div>
+            </div>
+
+            <!-- Track 2 (Right Direction) -->
+            <div class="marquee-container overflow-hidden relative w-full py-4 group">
+                <div class="absolute left-0 top-0 bottom-0 w-28 bg-gradient-to-r from-[#040814] to-transparent z-20 pointer-events-none"></div>
+                <div class="absolute right-0 top-0 bottom-0 w-28 bg-gradient-to-l from-[#040814] to-transparent z-20 pointer-events-none"></div>
+                
+                <div id="marquee-track-2" class="marquee-content flex gap-8 w-max animate-marquee-right"></div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: FILTERABLE FULL PORTFOLIO GALLERY -->
+        <section id="portfolio" class="space-y-10 pt-10">
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+                <div class="space-y-2">
+                    <span class="text-xs font-mono uppercase tracking-widest text-flutter-sky font-bold">Complete Portfolio</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold">All 9 Production Applications</h2>
+                    <p class="text-slate-400 text-sm">Click any app card to view full interactive screens, technical architecture, and store links.</p>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="flex flex-wrap gap-2 glass-panel p-2 rounded-2xl border border-slate-800">
+                    <button onclick="filterProjects('all')" class="filter-btn active px-4 py-2 rounded-xl text-xs font-bold transition-all bg-flutter-sky text-slate-950" data-filter="all">All (9 Apps)</button>
+                    <button onclick="filterProjects('retail')" class="filter-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white transition-all" data-filter="retail">Retail POS & Hardware</button>
+                    <button onclick="filterProjects('edtech')" class="filter-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white transition-all" data-filter="edtech">EdTech</button>
+                    <button onclick="filterProjects('fintech')" class="filter-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white transition-all" data-filter="fintech">Fintech & Payments</button>
+                    <button onclick="filterProjects('ecommerce')" class="filter-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white transition-all" data-filter="ecommerce">E-Commerce</button>
+                    <button onclick="filterProjects('news')" class="filter-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white transition-all" data-filter="news">News & Media</button>
+                </div>
+            </div>
+
+            <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </section>
+
+        <!-- SECTION 3: SKILLS & TECHNICAL ARCHITECTURE -->
+        <section id="skills" class="space-y-10 pt-10">
+            <div class="text-center max-w-3xl mx-auto space-y-3">
+                <span class="text-xs font-mono uppercase tracking-widest text-flutter-sky font-bold">Technical Stack & Capabilities</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold">Software Engineering Standards</h2>
+                <p class="text-slate-400 text-sm">Building ultra-smooth, maintainable, and scalable cross-platform mobile apps with industry-standard practices.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Skill Card 1 -->
+                <div class="glass-card p-6 rounded-3xl space-y-4 border border-slate-800 relative overflow-hidden">
+                    <div class="w-12 h-12 rounded-2xl bg-flutter-blue/20 flex items-center justify-center text-flutter-sky text-2xl">
+                        <i class="fa-brands fa-flutter"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Flutter & Dart Specialist</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Cross-platform development for iOS, Android & POS tablets with native performance, custom pixel-perfect UI, landscape/portrait adaptations, and responsive layouts.</p>
+                    <div class="flex flex-wrap gap-1.5 pt-2">
+                        <span class="px-2.5 py-1 rounded-md bg-slate-900 text-[10px] font-mono text-flutter-sky border border-slate-800">Dart 3.x</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-900 text-[10px] font-mono text-flutter-sky border border-slate-800">Tablet Landscape</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-900 text-[10px] font-mono text-flutter-sky border border-slate-800">Custom Painters</span>
+                    </div>
+                </div>
+
+                <!-- Skill Card 2 -->
+                <div class="glass-card p-6 rounded-3xl space-y-4 border border-slate-800 relative overflow-hidden">
+                    <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 text-2xl">
+                        <i class="fa-solid fa-sitemap"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Clean Architecture & BLoC</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Rigorous layer separation (Presentation, Domain, Data) utilizing flutter_bloc, Cubit, Dependency Injection (GetIt), and state predictability.</p>
+                    <div class="flex flex-wrap gap-1.5 pt-2">
+                        <span class="px-2.5 py-1 rounded-md bg-slate-900 text-[10px] font-mono text-cyan-400 border border-slate-800">flutter_bloc</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-900 text-[10px] font-mono text-cyan-400 border border-slate-800">GetIt (DI)</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-900 text-[10px] font-mono text-cyan-400 border border-slate-800">Freezed</span>
+                    </div>
+                </div>
+
+                <!-- Skill Card 3 -->
+                <div class="glass-card p-6 rounded-3xl space-y-4 border border-slate-800 relative overflow-hidden">
+                    <div class="w-12 h-12 rounded-2xl bg-purple-500/20 flex items-center justify-center text-purple-400 text-2xl">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">APIs & Local Database</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">RESTful API integrations via Dio, payment gateway integrations, encrypted offline storage with Hive DB and Shared Preferences, FCM Push Notifications.</p>
+                    <div class="flex flex-wrap gap-1.5 pt-2">
+                        <span class="px-2.5 py-1 rounded-md bg-slate-900 text-[10px] font-mono text-purple-400 border border-slate-800">Dio & HTTP</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-900 text-[10px] font-mono text-purple-400 border border-slate-800">Hive DB</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-900 text-[10px] font-mono text-purple-400 border border-slate-800">Firebase FCM</span>
+                    </div>
+                </div>
+
+                <!-- Skill Card 4 -->
+                <div class="glass-card p-6 rounded-3xl space-y-4 border border-slate-800 relative overflow-hidden">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 flex items-center justify-center text-emerald-400 text-2xl">
+                        <i class="fa-solid fa-cash-register"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">POS Hardware & App Stores</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Direct device hardware integration (POS camera scanners, Bluetooth thermal printers, cash drawers), and full deployment lifecycle management on App Store & Google Play.</p>
+                    <div class="flex flex-wrap gap-1.5 pt-2">
+                        <span class="px-2.5 py-1 rounded-md bg-slate-900 text-[10px] font-mono text-emerald-400 border border-slate-800">App Store</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-900 text-[10px] font-mono text-emerald-400 border border-slate-800">Google Play</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-900 text-[10px] font-mono text-emerald-400 border border-slate-800">Thermal Printer SDK</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: CAREER TIMELINE & EDUCATION -->
+        <section id="about" class="grid grid-cols-1 lg:grid-cols-12 gap-10 pt-10">
+            <!-- Experience Timeline -->
+            <div class="lg:col-span-7 space-y-8">
+                <div class="space-y-2">
+                    <span class="text-xs font-mono uppercase tracking-widest text-flutter-sky font-bold">Career Journey</span>
+                    <h2 class="text-3xl font-extrabold">Professional Experience</h2>
+                </div>
+
+                <div class="space-y-6 relative border-l-2 border-slate-800 ml-4 pl-6">
+                    <!-- Exp Item 1 -->
+                    <div class="relative group">
+                        <div class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-flutter-sky border-4 border-[#040814] group-hover:scale-125 transition-transform"></div>
+                        <div class="glass-card p-6 rounded-2xl space-y-2">
+                            <div class="flex flex-wrap justify-between items-start gap-2">
+                                <h3 class="text-lg font-bold text-white">Freelance Senior Flutter Developer</h3>
+                                <span class="px-3 py-1 rounded-full bg-flutter-sky/20 text-flutter-sky text-xs font-mono font-bold">2022 – Present</span>
+                            </div>
+                            <div class="text-sm font-semibold text-slate-300">Prosys · Amman, Jordan</div>
+                            <p class="text-xs text-slate-400 pt-2 leading-relaxed">
+                                Lead mobile application development for enterprise client projects including <strong>Addustour Newspaper</strong>, <strong>Al-Basheq POS</strong>, <strong>GoldenMark E-Voucher</strong>, and <strong>Sadad Financial Solutions</strong>. Implemented Clean Architecture with BLoC, payment gateways, FCM notifications, and offline caching.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Exp Item 2 -->
+                    <div class="relative group">
+                        <div class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-cyan-400 border-4 border-[#040814] group-hover:scale-125 transition-transform"></div>
+                        <div class="glass-card p-6 rounded-2xl space-y-2">
+                            <div class="flex flex-wrap justify-between items-start gap-2">
+                                <h3 class="text-lg font-bold text-white">Flutter Developer</h3>
+                                <span class="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-400 text-xs font-mono font-bold">Jun 2022 – Aug 2026</span>
+                            </div>
+                            <div class="text-sm font-semibold text-slate-300">PCstores Co · Full-time</div>
+                            <p class="text-xs text-slate-400 pt-2 leading-relaxed">
+                                Engineered the official <strong>Retail PC Stores</strong> landscape POS e-commerce software (Futec Soft), alongside internal retail utilities including <strong>Price Checker</strong> (instant camera barcode lookup) and <strong>Shelf Tag</strong> (Bluetooth thermal shelf printing).
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Exp Item 3 -->
+                    <div class="relative group">
+                        <div class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-purple-400 border-4 border-[#040814] group-hover:scale-125 transition-transform"></div>
+                        <div class="glass-card p-6 rounded-2xl space-y-2">
+                            <div class="flex flex-wrap justify-between items-start gap-2">
+                                <h3 class="text-lg font-bold text-white">Mobile Application Developer</h3>
+                                <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-400 text-xs font-mono font-bold">Jun 2021 – May 2022</span>
+                            </div>
+                            <div class="text-sm font-semibold text-slate-300">Jmal46 · Full-time</div>
+                            <p class="text-xs text-slate-400 pt-2 leading-relaxed">
+                                Built and launched the <strong>Ezydars</strong> educational booking platform and <strong>Ezydars Teachers</strong> companion app on iOS and Android, providing tutor ratings, live course filtering, teacher balance tracking, and session scheduling.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education & Contact Card -->
+            <div class="lg:col-span-5 space-y-6">
+                <div class="space-y-2">
+                    <span class="text-xs font-mono uppercase tracking-widest text-flutter-sky font-bold">Academic Background</span>
+                    <h2 class="text-3xl font-extrabold">Education</h2>
+                </div>
+
+                <div class="glass-card p-6 rounded-3xl space-y-4 border border-slate-800 relative overflow-hidden">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-500/20 flex items-center justify-center text-amber-400 text-2xl">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white">B.Sc. in Computer Engineering</h3>
+                        <p class="text-sm text-flutter-sky font-semibold mt-1">The University of Jordan (Amman)</p>
+                        <p class="text-xs text-slate-400 mt-3 leading-relaxed">
+                            Combining strong fundamentals in computer architecture, microprocessors, software engineering principles, and algorithm design with practical mobile engineering expertise.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Direct Contact Information -->
+                <div class="glass-panel p-6 rounded-3xl space-y-5 border border-flutter-sky/30">
+                    <h3 class="text-xl font-bold text-white">Get in Touch</h3>
+                    <p class="text-xs text-slate-400">Feel free to reach out for project inquiries, freelance opportunities, or full-time roles:</p>
+                    
+                    <div class="space-y-3 pt-1">
+                        <a href="mailto:razanadel013@gmail.com" class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 transition-colors group">
+                            <div class="w-10 h-10 rounded-lg bg-flutter-sky/20 flex items-center justify-center text-flutter-sky group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <div class="text-[10px] text-slate-400">Email Address</div>
+                                <div class="text-xs font-mono font-bold text-slate-200">razanadel013@gmail.com</div>
+                            </div>
+                        </a>
+
+                        <a href="tel:+962790782015" class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 transition-colors group">
+                            <div class="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <div class="text-[10px] text-slate-400">Phone / WhatsApp</div>
+                                <div class="text-xs font-mono font-bold text-slate-200">+962 7 9078 2015</div>
+                            </div>
+                        </a>
+
+                        <a href="https://www.linkedin.com/in/razan-adel-45165737a" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 transition-colors group">
+                            <div class="w-10 h-10 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+                                <i class="fa-brands fa-linkedin-in"></i>
+                            </div>
+                            <div>
+                                <div class="text-[10px] text-slate-400">LinkedIn Profile</div>
+                                <div class="text-xs font-mono font-bold text-slate-200">razan-adel-45165737a</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800 bg-[#02050E] py-10 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+            <div>
+                <div class="text-sm font-bold text-slate-200">Razan Adel – Senior Flutter Developer</div>
+                <div class="text-xs text-slate-500 mt-1">Computer Engineering Student · University of Jordan · Amman, Jordan</div>
+            </div>
+            <div class="text-xs text-slate-500 font-mono">
+                &copy; 2026 Razan Adel. Engineered with Flutter Passion & Precision.
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE LIGHTBOX SCREENSHOTS GALLERY MODAL -->
+    <div id="app-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 bg-slate-950/90 backdrop-blur-2xl transition-opacity duration-300">
+        <div class="relative w-full max-w-5xl glass-panel rounded-3xl border border-slate-700/60 overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[92vh]">
+            
+            <!-- Close Modal Button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-40 w-10 h-10 rounded-full bg-slate-900/90 text-slate-300 hover:text-white flex items-center justify-center border border-slate-700 transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <!-- Phone/Tablet Screenshot Viewer Left Side -->
+            <div class="md:w-1/2 p-6 bg-slate-950/80 flex flex-col items-center justify-center relative border-b md:border-b-0 md:border-r border-slate-800 min-h-[320px]">
+                <div class="absolute inset-0 bg-gradient-to-tr from-flutter-blue/20 via-transparent to-flutter-sky/10 pointer-events-none"></div>
+                
+                <!-- Dynamic Mockup Frame Container -->
+                <div id="modal-frame-wrapper" class="flex items-center justify-center my-2">
+                    <div id="modal-mockup" class="phone-mockup phone-mockup-lg scale-90 sm:scale-100 shadow-2xl">
+                        <div class="phone-notch"><div class="phone-camera"></div><div class="phone-speaker"></div></div>
+                        <div id="modal-screen-container" class="phone-screen relative overflow-hidden">
+                            <!-- Dynamic Screen Injected Here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thumbnails Selector -->
+                <div id="modal-thumbnails" class="flex items-center gap-2 mt-4 z-30 max-w-full overflow-x-auto p-1"></div>
+            </div>
+
+            <!-- App Details Right Side -->
+            <div class="md:w-1/2 p-6 sm:p-8 overflow-y-auto space-y-6 flex flex-col justify-between text-left">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span id="modal-category" class="px-3 py-1 rounded-full bg-flutter-sky/20 text-flutter-sky text-xs font-mono font-bold">Category</span>
+                        <span id="modal-company" class="text-xs font-semibold text-slate-400">Company</span>
+                    </div>
+
+                    <h2 id="modal-title" class="text-2xl sm:text-3xl font-extrabold text-white">App Title</h2>
+
+                    <p id="modal-desc" class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        Detailed application description.
+                    </p>
+
+                    <!-- Features -->
+                    <div class="space-y-2">
+                        <div class="text-xs font-mono text-flutter-sky uppercase font-bold tracking-wider">Key Engineering Features:</div>
+                        <ul id="modal-features" class="space-y-1.5 text-xs text-slate-300"></ul>
+                    </div>
+
+                    <!-- Tech Stack Badges -->
+                    <div class="space-y-2 pt-2">
+                        <div class="text-xs font-mono text-slate-400 uppercase font-bold tracking-wider">Tech Architecture:</div>
+                        <div id="modal-tech" class="flex flex-wrap gap-2"></div>
+                    </div>
+                </div>
+
+                <!-- Store Download Buttons -->
+                <div id="modal-store-btns" class="flex flex-wrap gap-3 pt-4 border-t border-slate-800"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT APP LOGIC & HIGH-FIDELITY SCREEN GENERATOR -->
+    <script>
+        /* ----------------------------------------------------
+           1. HIGH-FIDELITY CUSTOM UI SCREEN RENDERS
+           Recreating real app UI directly matching all uploaded images!
+        ---------------------------------------------------- */
+        const ScreenRenders = {
+            // --- RETAIL PC STORES / FUTEC SOFT POS SCREENS (NEW LANDSCAPE) ---
+            retailpc_1: () => `
+                <div class="w-full h-full bg-slate-200 text-slate-800 font-arabic flex flex-col p-2 dir-rtl text-right relative overflow-hidden">
+                    <div class="bg-white/95 rounded-xl p-2.5 shadow-lg border border-slate-300 flex flex-col justify-between h-full">
+                        <div class="flex justify-between items-center border-b pb-1">
+                            <div class="flex gap-2 items-center text-amber-600">
+                                <i class="fa-solid fa-globe text-xs"></i>
+                                <i class="fa-solid fa-sun text-xs"></i>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <span class="font-black text-amber-600 text-xs tracking-wider">Futec</span>
+                                <span class="text-[8px] font-bold text-slate-500">Soft</span>
+                            </div>
+                        </div>
+                        <div class="space-y-1.5 my-auto">
+                            <div class="bg-slate-100 rounded-lg p-1 flex items-center gap-1.5 text-[8px] border">
+                                <i class="fa-solid fa-envelope text-slate-400"></i>
+                                <input placeholder="اسم المستخدم" class="bg-transparent outline-none w-full text-[8px]" readonly value="admin">
+                            </div>
+                            <div class="bg-slate-100 rounded-lg p-1 flex items-center gap-1.5 text-[8px] border">
+                                <i class="fa-solid fa-lock text-slate-400"></i>
+                                <input type="password" value="••••••••" class="bg-transparent outline-none w-full text-[8px]" readonly>
+                                <i class="fa-solid fa-eye-slash text-slate-400 text-[8px]"></i>
+                            </div>
+                            <button class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-1 rounded-lg text-[9px] shadow-sm">تسجيل الدخول</button>
+                        </div>
+                    </div>
+                </div>
+            `,
+            retailpc_2: () => `
+                <div class="w-full h-full bg-slate-50 text-slate-900 font-arabic flex flex-col p-2 dir-rtl text-right overflow-hidden">
+                    <div class="bg-white rounded-xl p-2 border shadow-sm flex flex-col justify-between h-full">
+                        <div class="text-[9px] font-bold text-slate-800 border-b pb-1 flex justify-between items-center">
+                            <span>ملخص المبيعات (اغلاق الصندوق)</span>
+                            <span class="text-emerald-600 font-mono text-[8px]">Shift #102</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 my-1">
+                            <div class="bg-slate-50 p-1 rounded border text-center">
+                                <div class="text-[7px] text-slate-500">المبلغ المطلوب</div>
+                                <div class="text-[9px] font-mono font-bold text-slate-800">0.0000 JOD</div>
+                            </div>
+                            <div class="bg-slate-50 p-1 rounded border text-center">
+                                <div class="text-[7px] text-slate-500">القيمة الإفتتاحية</div>
+                                <div class="text-[9px] font-mono font-bold text-slate-800">0.0000 JOD</div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-4 gap-1 text-[8px] font-bold font-mono">
+                            <span class="bg-slate-100 p-1 rounded text-center border">1</span>
+                            <span class="bg-slate-100 p-1 rounded text-center border">2</span>
+                            <span class="bg-slate-100 p-1 rounded text-center border">3</span>
+                            <span class="bg-red-500 text-white p-1 rounded text-center">X</span>
+                            <span class="bg-slate-100 p-1 rounded text-center border">4</span>
+                            <span class="bg-slate-100 p-1 rounded text-center border">5</span>
+                            <span class="bg-slate-100 p-1 rounded text-center border">6</span>
+                            <span class="bg-emerald-600 text-white p-1 rounded text-center col-span-1 row-span-2 flex items-center justify-center text-[7px]">انهاء الشفت</span>
+                            <span class="bg-slate-100 p-1 rounded text-center border">7</span>
+                            <span class="bg-slate-100 p-1 rounded text-center border">8</span>
+                            <span class="bg-slate-100 p-1 rounded text-center border">9</span>
+                        </div>
+                    </div>
+                </div>
+            `,
+            retailpc_3: () => `
+                <div class="w-full h-full bg-slate-100 text-slate-900 font-arabic flex flex-col p-1.5 dir-rtl text-right overflow-hidden">
+                    <div class="flex gap-1.5 h-full">
+                        <!-- POS Item Grid -->
+                        <div class="flex-1 flex flex-col gap-1">
+                            <div class="bg-white p-1 rounded border flex justify-between items-center text-[8px]">
+                                <span class="font-bold text-slate-800">سوبر ماركت السلط</span>
+                                <input placeholder="ابحث عن العنصر..." class="bg-slate-100 px-1.5 py-0.5 rounded text-[7px] w-24">
+                            </div>
+                            <div class="grid grid-cols-3 gap-1 flex-1">
+                                <div class="bg-slate-800 text-white p-1 rounded flex flex-col justify-between text-[7px] relative">
+                                    <span class="bg-white text-slate-900 font-bold px-1 rounded self-start text-[6px]">0.25</span>
+                                    <span class="font-bold truncate mt-auto">ببيسي كولا 400 مل</span>
+                                </div>
+                                <div class="bg-slate-800 text-white p-1 rounded flex flex-col justify-between text-[7px] relative">
+                                    <span class="bg-white text-slate-900 font-bold px-1 rounded self-start text-[6px]">1.6</span>
+                                    <span class="font-bold truncate mt-auto">عصير راني</span>
+                                </div>
+                                <div class="bg-slate-800 text-white p-1 rounded flex flex-col justify-between text-[7px] relative">
+                                    <span class="bg-white text-slate-900 font-bold px-1 rounded self-start text-[6px]">0.25</span>
+                                    <span class="font-bold truncate mt-auto">سفن اب 400 مل</span>
+                                </div>
+                                <div class="bg-slate-800 text-white p-1 rounded flex flex-col justify-between text-[7px] relative">
+                                    <span class="bg-white text-slate-900 font-bold px-1 rounded self-start text-[6px]">1.3</span>
+                                    <span class="font-bold truncate mt-auto">شيبس ليز</span>
+                                </div>
+                                <div class="bg-slate-800 text-white p-1 rounded flex flex-col justify-between text-[7px] relative">
+                                    <span class="bg-white text-slate-900 font-bold px-1 rounded self-start text-[6px]">0.25</span>
+                                    <span class="font-bold truncate mt-auto">ديو 400 مل</span>
+                                </div>
+                                <div class="bg-amber-500 text-white p-1 rounded flex items-center justify-center font-bold text-[10px]">
+                                    <i class="fa-solid fa-bars"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Current Order Sidebar -->
+                        <div class="w-24 bg-white p-1 rounded border flex flex-col justify-between text-[7px]">
+                            <div class="font-bold border-b pb-0.5 text-slate-700">الطلبات الحالية</div>
+                            <div class="text-slate-400 text-center my-auto">لا يوجد مواد</div>
+                            <div class="space-y-0.5 border-t pt-0.5">
+                                <div class="bg-emerald-600 text-white font-bold p-0.5 rounded text-center">كاش 💵</div>
+                                <div class="bg-blue-600 text-white font-bold p-0.5 rounded text-center">الدفع بواسطة 💳</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+
+            // --- EZYDARS TEACHERS APP SCREENS ---
+            ezydars_teachers_1: () => `
+                <div class="w-full h-full bg-slate-50 text-slate-800 font-sans flex flex-col p-2.5 dir-ltr text-left">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <div class="text-[8px] text-slate-500 font-medium">Balance : <span class="font-bold text-slate-800">93.05 $</span></div>
+                            <div class="text-[10px] font-bold mt-0.5">👋 Good Morning , Firas</div>
+                        </div>
+                        <div class="flex gap-2 items-center text-slate-700 text-xs">
+                            <i class="fa-solid fa-message"></i>
+                            <i class="fa-solid fa-bell relative"><span class="absolute -top-1 -right-1 bg-red-600 text-white text-[6px] rounded-full w-2.5 h-2.5 flex items-center justify-center font-bold">5</span></i>
+                            <div class="w-5 h-5 rounded-full bg-slate-300"></div>
+                        </div>
+                    </div>
+                    <div class="bg-amber-100 rounded-xl p-2 mb-2 relative overflow-hidden flex items-center justify-center h-20">
+                        <div class="text-center">
+                            <i class="fa-solid fa-laptop-code text-amber-600 text-xl mb-1"></i>
+                            <div class="text-[8px] font-bold text-amber-900">Live Virtual Classroom Dashboard</div>
+                        </div>
+                    </div>
+                    <div class="text-[9px] font-bold text-indigo-950 mb-1">Quick Access</div>
+                    <div class="grid grid-cols-2 gap-1.5 mb-2">
+                        <div class="bg-white p-1.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-2">
+                            <i class="fa-regular fa-square-check text-indigo-900 text-xs"></i>
+                            <div><div class="text-[9px] font-bold">0</div><div class="text-[6px] text-slate-400">Todays Bookings</div></div>
+                        </div>
+                        <div class="bg-white p-1.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-2">
+                            <i class="fa-solid fa-briefcase text-indigo-900 text-xs"></i>
+                            <div><div class="text-[9px] font-bold">13</div><div class="text-[6px] text-slate-400">Previous Bookings</div></div>
+                        </div>
+                        <div class="bg-white p-1.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-2">
+                            <i class="fa-regular fa-calendar text-indigo-900 text-xs"></i>
+                            <div><div class="text-[9px] font-bold">0</div><div class="text-[6px] text-slate-400">Upcoming Bookings</div></div>
+                        </div>
+                        <div class="bg-white p-1.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-2">
+                            <i class="fa-solid fa-book-open text-indigo-900 text-xs"></i>
+                            <div><div class="text-[9px] font-bold">113.05 USD</div><div class="text-[6px] text-slate-400">Total Work</div></div>
+                        </div>
+                        <div class="bg-white p-1.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-2">
+                            <i class="fa-regular fa-credit-card text-indigo-900 text-xs"></i>
+                            <div><div class="text-[9px] font-bold">20.00 USD</div><div class="text-[6px] text-slate-400">Total Transfer</div></div>
+                        </div>
+                        <div class="bg-white p-1.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-2">
+                            <i class="fa-solid fa-dollar-sign text-indigo-900 text-xs"></i>
+                            <div><div class="text-[9px] font-bold">93.05 USD</div><div class="text-[6px] text-slate-400">Balance</div></div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            ezydars_teachers_2: () => `
+                <div class="w-full h-full bg-white text-slate-800 font-sans flex flex-col p-2 dir-ltr text-left">
+                    <div class="text-[10px] font-bold text-center border-b pb-1 mb-2 text-indigo-950">Appointment</div>
+                    <div class="flex justify-between items-center bg-slate-50 p-1 rounded-lg text-[8px] font-bold mb-2">
+                        <span>December</span>
+                        <i class="fa-solid fa-caret-down"></i>
+                    </div>
+                    <div class="flex gap-1 overflow-x-hidden mb-2">
+                        <div class="bg-indigo-950 text-white rounded-lg p-1 text-center w-8 shrink-0"><div class="text-[9px] font-bold">7</div><div class="text-[6px]">THU</div></div>
+                        <div class="bg-slate-100 text-slate-700 rounded-lg p-1 text-center w-8 shrink-0"><div class="text-[9px] font-bold">8</div><div class="text-[6px]">FRI</div></div>
+                        <div class="bg-slate-100 text-slate-700 rounded-lg p-1 text-center w-8 shrink-0"><div class="text-[9px] font-bold">9</div><div class="text-[6px]">SAT</div></div>
+                        <div class="bg-slate-100 text-slate-700 rounded-lg p-1 text-center w-8 shrink-0"><div class="text-[9px] font-bold">10</div><div class="text-[6px]">SUN</div></div>
+                    </div>
+                    <div class="border rounded-lg overflow-hidden text-[7px] space-y-0.5">
+                        <div class="bg-slate-100 font-bold p-1 grid grid-cols-4 text-indigo-950 text-center">
+                            <span>From</span><span>To</span><span>Status</span><span>Action</span>
+                        </div>
+                        <div class="p-1 grid grid-cols-4 text-center border-t border-slate-100 items-center">
+                            <span>12:00 AM</span><span>01:00 AM</span><span class="text-emerald-600 font-bold">active</span><i class="fa-solid fa-trash text-red-500 text-[8px]"></i>
+                        </div>
+                        <div class="p-1 grid grid-cols-4 text-center border-t border-slate-100 items-center">
+                            <span>01:00 AM</span><span>02:00 AM</span><span class="text-emerald-600 font-bold">active</span><i class="fa-solid fa-trash text-red-500 text-[8px]"></i>
+                        </div>
+                    </div>
+                </div>
+            `,
+
+            // --- ADDUSTOUR NEWS APP SCREENS ---
+            addustour_1: () => `
+                <div class="w-full h-full bg-white text-slate-900 font-arabic flex flex-col dir-rtl p-2 text-right">
+                    <div class="flex justify-between items-center border-b pb-1 mb-2">
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                        <span class="font-bold text-xs">الصفحات الكاملة</span>
+                        <div></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-1.5 flex-1 overflow-hidden">
+                        <div class="border rounded p-1 bg-slate-50 flex flex-col">
+                            <div class="bg-red-700 text-white text-[8px] font-bold px-1 py-0.5 text-center">الدستور</div>
+                            <div class="text-[7px] font-bold mt-1">الملك : لا استقرار ولا إزدهار دون حل القضية الفلسطينية</div>
+                            <div class="bg-slate-200 h-10 mt-1 rounded"></div>
+                            <div class="text-[6px] text-slate-500 mt-auto">الثلاثاء 29 ربيع الأول</div>
+                        </div>
+                        <div class="border rounded p-1 bg-slate-50 flex flex-col">
+                            <div class="bg-red-700 text-white text-[8px] font-bold px-1 py-0.5 text-center">الدستور</div>
+                            <div class="text-[7px] font-bold mt-1">إعادة النظر بالحوافز والمكافآت في الوظيفة العامة</div>
+                            <div class="bg-slate-200 h-10 mt-1 rounded"></div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            addustour_2: () => `
+                <div class="w-full h-full bg-white text-slate-900 font-arabic flex flex-col dir-rtl p-2 text-right">
+                    <div class="flex justify-between items-center border-b pb-1 mb-1">
+                        <i class="fa-solid fa-bars text-xs"></i>
+                        <span class="font-extrabold text-sm text-blue-900">الدستور</span>
+                        <div class="flex gap-1 text-xs">
+                            <i class="fa-solid fa-file-pdf text-red-600"></i>
+                            <i class="fa-solid fa-microphone text-blue-500"></i>
+                        </div>
+                    </div>
+                    <div class="flex gap-2 text-[9px] font-bold border-b pb-1 text-slate-600">
+                        <span class="text-purple-700 border-b-2 border-purple-700 pb-0.5">محليات</span>
+                        <span>قضايا وآراء</span>
+                        <span>الصحة</span>
+                    </div>
+                    <div class="mt-2 space-y-2">
+                        <div class="border rounded-lg p-1.5 bg-slate-50">
+                            <div class="bg-red-900/10 p-2 rounded flex justify-center">
+                                <div class="text-center">
+                                    <i class="fa-solid fa-crown text-amber-600 text-base"></i>
+                                    <div class="text-[8px] font-bold text-red-900">الخدمات الطبية الملكية</div>
+                                </div>
+                            </div>
+                            <div class="text-[9px] font-bold mt-1">انطلاق المؤتمر الدولي للخدمات الطبية في 7 آذار</div>
+                        </div>
+                    </div>
+                </div>
+            `,
+
+            // --- AL-BASHEQ POS APP SCREENS ---
+            albasheq_1: () => `
+                <div class="w-full h-full bg-[#272B33] text-amber-200 font-arabic flex flex-col dir-rtl p-3 text-right relative">
+                    <div class="bg-[#323742] p-3 rounded-xl border border-amber-500/20 space-y-3 shadow-2xl">
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-amber-400 font-extrabold">أهلاً بك, admin</span>
+                            <i class="fa-solid fa-xmark text-slate-400"></i>
+                        </div>
+                        <div class="text-[9px] text-slate-300 space-y-1">
+                            <div>معرف نقطة البيع : <span class="text-white font-mono font-bold">6</span></div>
+                            <div>الرصيد المتاح : <span class="text-amber-400 font-bold">33.726 JOD</span></div>
+                        </div>
+                        <div class="space-y-2 text-[10px] pt-2 border-t border-slate-700">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-user text-amber-400"></i> المعلومات الشخصية</div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-dollar-sign text-amber-400"></i> المعلومات المالية</div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-id-card text-amber-400"></i> البطاقات</div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-print text-amber-400"></i> تغيير الطابعة</div>
+                        </div>
+                    </div>
+                </div>
+            `,
+
+            // --- GOLDENMARK E-VOUCHER APP SCREENS ---
+            goldenmark_1: () => `
+                <div class="w-full h-full bg-slate-200 text-slate-800 font-sans flex flex-col items-center justify-center p-3 dir-ltr">
+                    <div class="w-12 h-12 rounded-full border-4 border-orange-500 flex items-center justify-center text-orange-600 font-black text-xl mb-2 bg-white shadow">G</div>
+                    <div class="text-sm font-black text-slate-800 tracking-wider mb-3">GOLDEN MARK</div>
+                    <div class="w-full bg-white p-3 rounded-2xl shadow-lg space-y-2 text-left">
+                        <div class="border rounded-xl p-1.5 flex items-center gap-2 text-[9px]"><i class="fa-solid fa-user text-orange-500"></i><input placeholder="Username" class="w-full outline-none bg-transparent" readonly value="admin"></div>
+                        <div class="border rounded-xl p-1.5 flex items-center gap-2 text-[9px]"><i class="fa-solid fa-lock text-orange-500"></i><input type="password" value="••••••••" class="w-full outline-none bg-transparent" readonly></div>
+                        <button class="w-full bg-orange-500 text-white font-bold py-1.5 rounded-xl text-xs shadow-md">Sign In</button>
+                    </div>
+                </div>
+            `,
+
+            // --- SADAD FINTECH APP SCREENS ---
+            sadad_1: () => `
+                <div class="w-full h-full bg-[#0B7297] text-white font-sans flex flex-col p-3 dir-ltr text-center">
+                    <div class="bg-white rounded-2xl p-2 mx-auto mb-3 shadow w-28"><div class="text-xs font-black text-[#0B7297]">sadad سداد</div></div>
+                    <div class="grid grid-cols-3 gap-2 my-2">
+                        <div class="flex flex-col items-center"><div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-xs"><i class="fa-solid fa-bag-shopping"></i></div><span class="text-[7px] mt-1">e-commerce</span></div>
+                        <div class="flex flex-col items-center"><div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-xs"><i class="fa-solid fa-building-columns"></i></div><span class="text-[7px] mt-1">banks</span></div>
+                        <div class="flex flex-col items-center"><div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-xs"><i class="fa-solid fa-tower-cell"></i></div><span class="text-[7px] mt-1">telecom</span></div>
+                    </div>
+                    <div class="bg-white text-slate-800 rounded-2xl p-3 shadow-xl mt-auto space-y-1.5 text-left">
+                        <input placeholder="UserName" class="w-full border rounded-lg p-1 text-[8px]" readonly value="User123">
+                        <button class="w-full bg-[#0B7297] text-white font-bold py-1 rounded-lg text-xs">Sign In</button>
+                    </div>
+                </div>
+            `,
+
+            // --- EZYDARS EDTECH APP SCREENS ---
+            ezydars_1: () => `
+                <div class="w-full h-full bg-slate-50 text-slate-800 font-sans flex flex-col p-2 dir-ltr text-left">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="flex items-center gap-1.5">
+                            <div class="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-[10px]">RS</div>
+                            <div><div class="text-[7px] text-slate-400">Good Night</div><div class="text-[9px] font-bold">Rafat Samara</div></div>
+                        </div>
+                        <i class="fa-solid fa-bell text-blue-600 text-xs"></i>
+                    </div>
+                    <div class="grid grid-cols-2 gap-1 mb-2">
+                        <span class="border bg-white text-center py-1 rounded-lg text-[8px] font-bold">Math</span>
+                        <span class="border bg-white text-center py-1 rounded-lg text-[8px] font-bold">Physics</span>
+                        <span class="border bg-white text-center py-1 rounded-lg text-[8px] font-bold">Arabic</span>
+                        <span class="border bg-white text-center py-1 rounded-lg text-[8px] font-bold">English</span>
+                    </div>
+                </div>
+            `,
+
+            // Generic Fallback Preview
+            generic: (title, color = '#01B5F8') => `
+                <div class="w-full h-full bg-slate-900 text-white font-sans flex flex-col items-center justify-center p-4 text-center">
+                    <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-bold mb-2 shadow-lg" style="background:${color}">
+                        <i class="fa-solid fa-mobile-screen"></i>
+                    </div>
+                    <div class="text-xs font-bold text-white mb-1">${title}</div>
+                    <div class="text-[8px] text-slate-400">Interactive Flutter Production App</div>
+                </div>
+            `
+        };
+
+        /* ----------------------------------------------------
+           2. APPS DATASET
+        ---------------------------------------------------- */
+        const appsData = [
+            {
+                id: "retailpc",
+                title: "Retail PC Stores POS",
+                company: "PCstores Co",
+                category: "Retail POS Software",
+                tag: "retail",
+                isLandscape: true,
+                companyKey: "pcstores",
+                desc: "Official Futec Soft point-of-sale e-commerce & retail software engineered for PC stores. Supports landscape tablet mode, secure operator login, cashier shift closure ('ملخص المبيعات'), barcode product scanning, and cash/card checkout.",
+                renderKeys: ["retailpc_1", "retailpc_2", "retailpc_3"],
+                features: [
+                    "🔐 Futec Soft secure cashier & admin login terminal",
+                    "💰 Cash drawer shift closure & sales summary dashboard ('اغلاق الصندوق')",
+                    "🛒 Point-of-Sale product catalog grid with instant pricing ('سوبر ماركت السلط')",
+                    "💳 Multi-tender checkout flows (Cash & Card terminal support)"
+                ],
+                tech: ["Flutter", "Dart", "Tablet Landscape", "BLoC", "REST API", "Cash Drawer SDK"],
+                storeLinks: {
+                    appStore: "https://apps.apple.com/jo/app/retail-pc-stores/id6753711418"
+                },
+                color: "#EAB308"
+            },
+            {
+                id: "ezydarsteachers",
+                title: "Ezydars Teachers",
+                company: "Jmal46",
+                category: "EdTech Companion",
+                tag: "edtech",
+                isLandscape: false,
+                companyKey: "jmal46",
+                desc: "Companion mobile application for educators to manage booking schedules, view upcoming & previous appointments, access lesson room links, track wallet balance, and review student questions.",
+                renderKeys: ["ezydars_teachers_1", "ezydars_teachers_2"],
+                features: [
+                    "📊 Real-time teacher earnings & balance transfer tracker ($93.05)",
+                    "📅 Slot management system for active & upcoming lesson bookings",
+                    "🔗 Direct lesson room link access for scheduled online classes",
+                    "💬 Built-in chat interface with enrolled students"
+                ],
+                tech: ["Flutter", "Dart", "BLoC Pattern", "REST API", "State Management"],
+                storeLinks: {
+                    appStore: "https://apps.apple.com/jo/app/ezydars-teachers/id6473779373",
+                    playStore: "https://play.google.com/store/apps/details?id=com.beyond.ezydarsteacher"
+                },
+                color: "#6366F1"
+            },
+            {
+                id: "addustour",
+                title: "Addustour Newspaper",
+                company: "Prosys",
+                category: "News & Media",
+                tag: "news",
+                isLandscape: false,
+                companyKey: "prosys",
+                desc: "Official mobile application for the Addustour newspaper in Jordan. Features breaking news alerts, digital newspaper archive reader, embedded live video studio, and offline article storage.",
+                renderKeys: ["addustour_1", "addustour_2"],
+                features: [
+                    "📰 Complete digital reader for printed daily newspaper pages",
+                    "⚡ Instant FCM push notifications for breaking regional news",
+                    "🎥 Integrated video studio player for live broadcasts",
+                    "🔖 Encrypted local storage using Hive DB for offline reading"
+                ],
+                tech: ["Flutter", "Dart", "BLoC", "REST API", "Hive DB", "Firebase FCM"],
+                storeLinks: {
+                    appStore: "https://apps.apple.com/jo/app/addustor/id1183892254",
+                    playStore: "https://play.google.com/store/apps/details?id=com.addustor.addustor_project"
+                },
+                color: "#01B5F8"
+            },
+            {
+                id: "albasheq",
+                title: "Al-Basheq POS",
+                company: "Prosys",
+                category: "Telecom & POS Top-Up",
+                tag: "fintech",
+                isLandscape: false,
+                companyKey: "prosys",
+                desc: "Commercial point-of-sale application for instant electronic top-up cards (Orange, Zain), drawer account management, transaction logs, and Bluetooth thermal receipt printing.",
+                renderKeys: ["albasheq_1"],
+                features: [
+                    "💳 Instant top-up voucher generation for telecom operators",
+                    "🖨️ Thermal printer SDK integration via Bluetooth",
+                    "🔐 POS point manager with live balance tracking & history"
+                ],
+                tech: ["Flutter", "Dart", "BLoC Pattern", "Clean Architecture", "Printer SDK"],
+                storeLinks: {
+                    appStore: "https://apps.apple.com/jo/app/albasheq/id6462672573",
+                    playStore: "https://play.google.com/store/apps/details?id=com.albasheq.albasheq"
+                },
+                color: "#FF6B00"
+            },
+            {
+                id: "goldenmark",
+                title: "GoldenMark E-Voucher",
+                company: "Prosys",
+                category: "E-Commerce & Vouchers",
+                tag: "ecommerce",
+                isLandscape: false,
+                companyKey: "prosys",
+                desc: "Service e-commerce application allowing merchants to purchase digital vouchers, filter providers, choose custom denominations, and manage sub-accounts.",
+                renderKeys: ["goldenmark_1"],
+                features: [
+                    "🛍️ Browse top telecom providers (Orange, Zain)",
+                    "🔢 Dynamic denomination selection with real-time price calculations",
+                    "🌐 Secure sign-in with session caching and multi-language support"
+                ],
+                tech: ["Flutter", "Dart", "BLoC", "REST API", "Shared Preferences"],
+                storeLinks: {
+                    playStore: "https://play.google.com/store/apps/details?id=com.goldenmark.golden_mark"
+                },
+                color: "#FFB800"
+            },
+            {
+                id: "sadad",
+                title: "Sadad Logistics & Payments",
+                company: "Prosys",
+                category: "Fintech & Payments",
+                tag: "fintech",
+                isLandscape: false,
+                companyKey: "prosys",
+                desc: "Financial services & payment gateway app designed for paying utility bills, university fees, telecommunication top-ups, and commercial logistics invoices.",
+                renderKeys: ["sadad_1"],
+                features: [
+                    "💸 Quick payments for universities, banks, and telecom billers",
+                    "⭐ Favorites card bar for 1-tap recurring payments",
+                    "🔒 Encrypted security token management for safe checkouts"
+                ],
+                tech: ["Flutter", "Dart", "BLoC", "Encrypted Storage", "REST APIs"],
+                storeLinks: {
+                    playStore: "https://play.google.com/store/apps/details?id=com.sadad.sadad"
+                },
+                color: "#3B82F6"
+            },
+            {
+                id: "ezydars",
+                title: "Ezydars Tutor Platform",
+                company: "Jmal46",
+                category: "EdTech & Tutoring",
+                tag: "edtech",
+                isLandscape: false,
+                companyKey: "jmal46",
+                desc: "Educational marketplace mobile app connecting students with certified tutors across Jordan for private live sessions and course materials.",
+                renderKeys: ["ezydars_1"],
+                features: [
+                    "👨‍🏫 Browse verified tutors with detailed ratings, rates, and reviews",
+                    "🔍 Advanced filter sheet (Math, Physics, Price range, Tutor gender)",
+                    "📚 Course bookmarking and direct session booking flow"
+                ],
+                tech: ["Flutter", "Dart", "BLoC Pattern", "REST API"],
+                storeLinks: {
+                    appStore: "https://apps.apple.com/jo/app/ezydars/id6467185873",
+                    playStore: "https://play.google.com/store/apps/details?id=com.beyond.ezydars"
+                },
+                color: "#8B5CF6"
+            },
+            {
+                id: "pricechecker",
+                title: "Price Checker Utility",
+                company: "PCstores Co",
+                category: "Retail Logistics",
+                tag: "retail",
+                isLandscape: false,
+                companyKey: "pcstores",
+                desc: "High-performance barcode scanning utility for retail staff to verify shelf pricing and live inventory counts in real time.",
+                renderKeys: ["generic"],
+                features: [
+                    "📸 Camera barcode scanner under 200ms latency",
+                    "⚡ Instant stock & price lookup via internal Dio client",
+                    "🏬 Multi-store inventory sync"
+                ],
+                tech: ["Flutter", "Mobile Scanner", "Dio", "Local DB"],
+                storeLinks: {},
+                color: "#EC4899"
+            },
+            {
+                id: "shelftag",
+                title: "Shelf Tag Label System",
+                company: "PCstores Co",
+                category: "Inventory & Printing",
+                tag: "retail",
+                isLandscape: false,
+                companyKey: "pcstores",
+                desc: "Mobile barcode label generation and wireless printer system for retail shelf pricing management.",
+                renderKeys: ["generic"],
+                features: [
+                    "🖨️ Wireless Bluetooth pairing with thermal printer hardware",
+                    "🏷️ Customizable label template rendering",
+                    "📊 Bulk label queue management"
+                ],
+                tech: ["Flutter", "Bluetooth Serial", "PDF Label SDK"],
+                storeLinks: {},
+                color: "#10B981"
+            }
+        ];
+
+        /* ----------------------------------------------------
+           3. DYNAMIC TYPING EFFECT
+        ---------------------------------------------------- */
+        const typingPhrases = [
+            "Senior Flutter Engineering.",
+            "Retail POS & Futec Soft Apps.",
+            "Clean Architecture & BLoC.",
+            "Cross-Platform iOS & Android."
+        ];
+        let typeIdx = 0;
+        let charIdx = 0;
+        let isDeleting = false;
+
+        function typeEffect() {
+            const currentPhrase = typingPhrases[typeIdx];
+            const targetEl = document.getElementById("typing-text");
+            if (!targetEl) return;
+
+            if (isDeleting) {
+                targetEl.textContent = currentPhrase.substring(0, charIdx - 1);
+                charIdx--;
+            } else {
+                targetEl.textContent = currentPhrase.substring(0, charIdx + 1);
+                charIdx++;
+            }
+
+            let typeSpeed = isDeleting ? 30 : 65;
+
+            if (!isDeleting && charIdx === currentPhrase.length) {
+                typeSpeed = 1600;
+                isDeleting = true;
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false;
+                typeIdx = (typeIdx + 1) % typingPhrases.length;
+                typeSpeed = 300;
+            }
+
+            setTimeout(typeEffect, typeSpeed);
+        }
+
+        /* ----------------------------------------------------
+           4. HERO SPOTLIGHT ROTATOR & CAROUSEL
+        ---------------------------------------------------- */
+        let currentHeroAppIdx = 0;
+        let currentHeroScreenIdx = 0;
+        let isAutoPlaying = true;
+        let heroTimer = null;
+        let progressVal = 0;
+
+        function renderScreenHtml(renderKey, appTitle, color) {
+            if (ScreenRenders[renderKey]) {
+                return ScreenRenders[renderKey]();
+            }
+            return ScreenRenders.generic(appTitle, color);
+        }
+
+        function updateHeroSpotlight() {
+            const app = appsData[currentHeroAppIdx];
+            const renderKey = app.renderKeys[currentHeroScreenIdx % app.renderKeys.length];
+
+            const screenEl = document.getElementById("hero-phone-screen");
+            const frameEl = document.getElementById("hero-phone-frame");
+            const titleEl = document.getElementById("hero-app-title");
+            const subEl = document.getElementById("hero-app-sub");
+            const indicatorsEl = document.getElementById("hero-indicators");
+
+            if (frameEl) {
+                if (app.isLandscape) {
+                    frameEl.className = "phone-mockup-landscape transform group-hover:scale-[1.02] transition-transform duration-500 shadow-2xl";
+                } else {
+                    frameEl.className = "phone-mockup phone-mockup-lg transform group-hover:scale-[1.02] transition-transform duration-500 shadow-2xl";
+                }
+            }
+
+            if (screenEl) {
+                screenEl.innerHTML = renderScreenHtml(renderKey, app.title, app.color);
+            }
+            if (titleEl) titleEl.textContent = app.title;
+            if (subEl) subEl.textContent = `${app.category} · ${app.company}`;
+
+            if (indicatorsEl) {
+                indicatorsEl.innerHTML = appsData.map((a, i) => `
+                    <div onclick="setHeroSlide(${i})" class="w-2.5 h-2.5 rounded-full cursor-pointer transition-all ${i === currentHeroAppIdx ? 'bg-flutter-sky w-7' : 'bg-slate-700 hover:bg-slate-500'}"></div>
+                `).join('');
+            }
+        }
+
+        function startHeroAutoScroll() {
+            if (heroTimer) clearInterval(heroTimer);
+            heroTimer = setInterval(() => {
+                if (!isAutoPlaying) return;
+                progressVal += 2.5;
+                const bar = document.getElementById("hero-progress-bar");
+                if (bar) bar.style.width = `${progressVal}%`;
+
+                if (progressVal >= 100) {
+                    progressVal = 0;
+                    if (bar) bar.style.width = "0%";
+                    const app = appsData[currentHeroAppIdx];
+                    currentHeroScreenIdx++;
+                    if (currentHeroScreenIdx >= app.renderKeys.length) {
+                        currentHeroScreenIdx = 0;
+                        currentHeroAppIdx = (currentHeroAppIdx + 1) % appsData.length;
+                    }
+                    updateHeroSpotlight();
+                }
+            }, 80);
+        }
+
+        function toggleAutoPlay() {
+            isAutoPlaying = !isAutoPlaying;
+            const btn = document.getElementById("play-pause-btn");
+            if (btn) {
+                btn.innerHTML = isAutoPlaying ? `<i class="fa-solid fa-pause"></i>` : `<i class="fa-solid fa-play"></i>`;
+            }
+        }
+
+        function nextHeroSlide() {
+            currentHeroAppIdx = (currentHeroAppIdx + 1) % appsData.length;
+            currentHeroScreenIdx = 0;
+            progressVal = 0;
+            updateHeroSpotlight();
+        }
+
+        function prevHeroSlide() {
+            currentHeroAppIdx = (currentHeroAppIdx - 1 + appsData.length) % appsData.length;
+            currentHeroScreenIdx = 0;
+            progressVal = 0;
+            updateHeroSpotlight();
+        }
+
+        function setHeroSlide(idx) {
+            currentHeroAppIdx = idx;
+            currentHeroScreenIdx = 0;
+            progressVal = 0;
+            updateHeroSpotlight();
+        }
+
+        function openHeroModal() {
+            openModal(appsData[currentHeroAppIdx].id);
+        }
+
+        /* ----------------------------------------------------
+           5. RENDER MARQUEE SLIDERS
+        ---------------------------------------------------- */
+        function renderMarquees() {
+            const track1 = document.getElementById("marquee-track-1");
+            const track2 = document.getElementById("marquee-track-2");
+            if (!track1 || !track2) return;
+
+            const allScreens = [];
+            appsData.forEach(app => {
+                app.renderKeys.forEach((renderKey, screenIdx) => {
+                    allScreens.push({ ...app, renderKey, screenIdx });
+                });
+            });
+
+            const doubledScreens = [...allScreens, ...allScreens];
+
+            track1.innerHTML = doubledScreens.map(item => `
+                <div onclick="openModal('${item.id}', ${item.screenIdx})" class="${item.isLandscape ? 'phone-mockup-landscape' : 'phone-mockup'} hover:scale-105 transition-all cursor-pointer group/item relative">
+                    <div class="phone-notch"><div class="phone-camera"></div><div class="phone-speaker"></div></div>
+                    <div class="phone-screen">
+                        ${renderScreenHtml(item.renderKey, item.title, item.color)}
+                    </div>
+                    <div class="absolute inset-0 bg-slate-950/50 opacity-0 group-hover/item:opacity-100 transition-opacity flex items-center justify-center z-40">
+                        <span class="px-3 py-1.5 rounded-xl bg-flutter-sky text-slate-950 font-extrabold text-xs shadow-lg">Preview</span>
+                    </div>
+                </div>
+            `).join('');
+
+            const reversedScreens = [...allScreens].reverse();
+            const doubledReversed = [...reversedScreens, ...reversedScreens];
+
+            track2.innerHTML = doubledReversed.map(item => `
+                <div onclick="openModal('${item.id}', ${item.screenIdx})" class="${item.isLandscape ? 'phone-mockup-landscape' : 'phone-mockup'} hover:scale-105 transition-all cursor-pointer group/item relative">
+                    <div class="phone-notch"><div class="phone-camera"></div><div class="phone-speaker"></div></div>
+                    <div class="phone-screen">
+                        ${renderScreenHtml(item.renderKey, item.title, item.color)}
+                    </div>
+                    <div class="absolute inset-0 bg-slate-950/50 opacity-0 group-hover/item:opacity-100 transition-opacity flex items-center justify-center z-40">
+                        <span class="px-3 py-1.5 rounded-xl bg-flutter-sky text-slate-950 font-extrabold text-xs shadow-lg">Preview</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        /* ----------------------------------------------------
+           6. RENDER & FILTER PROJECTS GRID
+        ---------------------------------------------------- */
+        function renderProjects(filter = 'all') {
+            const grid = document.getElementById("projects-grid");
+            if (!grid) return;
+
+            const filtered = appsData.filter(app => {
+                if (filter === 'all') return true;
+                return app.tag === filter;
+            });
+
+            grid.innerHTML = filtered.map(app => `
+                <div class="glass-card p-6 rounded-3xl space-y-5 border border-slate-800 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase" style="background: ${app.color}20; color: ${app.color}">${app.category}</span>
+                            <span class="text-xs font-semibold text-slate-400">${app.company}</span>
+                        </div>
+
+                        <div onclick="openModal('${app.id}')" class="flex justify-center py-2 cursor-pointer">
+                            <div class="${app.isLandscape ? 'phone-mockup-landscape' : 'phone-mockup'} transform group-hover:scale-105 transition-transform duration-300">
+                                <div class="phone-notch"><div class="phone-camera"></div><div class="phone-speaker"></div></div>
+                                <div class="phone-screen">
+                                    ${renderScreenHtml(app.renderKeys[0], app.title, app.color)}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-bold text-white group-hover:text-flutter-sky transition-colors">${app.title}</h3>
+                            <p class="text-xs text-slate-400 line-clamp-2 mt-2 leading-relaxed">${app.desc}</p>
+                        </div>
+
+                        <div class="flex flex-wrap gap-1.5 pt-1">
+                            ${app.tech.map(t => `<span class="px-2 py-0.5 rounded bg-slate-900 text-[10px] text-slate-300 font-mono border border-slate-800">${t}</span>`).join('')}
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-4 border-t border-slate-800/80">
+                        <button onclick="openModal('${app.id}')" class="text-xs font-bold text-flutter-sky flex items-center gap-2 hover:underline">
+                            <span>View All Screenshots</span>
+                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                        <div class="flex items-center gap-2">
+                            ${app.storeLinks.appStore ? `<a href="${app.storeLinks.appStore}" target="_blank" class="text-slate-400 hover:text-white text-base" title="App Store"><i class="fa-brands fa-apple"></i></a>` : ''}
+                            ${app.storeLinks.playStore ? `<a href="${app.storeLinks.playStore}" target="_blank" class="text-slate-400 hover:text-emerald-400 text-base" title="Google Play"><i class="fa-brands fa-google-play"></i></a>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterProjects(filter) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-flutter-sky', 'text-slate-950', 'active');
+                btn.classList.add('text-slate-300');
+                if (btn.dataset.filter === filter) {
+                    btn.classList.add('bg-flutter-sky', 'text-slate-950', 'active');
+                    btn.classList.remove('text-slate-300');
+                }
+            });
+            renderProjects(filter);
+        }
+
+        /* ----------------------------------------------------
+           7. LIGHTBOX MODAL
+        ---------------------------------------------------- */
+        let activeModalApp = null;
+
+        function openModal(appId, startImgIdx = 0) {
+            activeModalApp = appsData.find(a => a.id === appId);
+            if (!activeModalApp) return;
+
+            const modal = document.getElementById("app-modal");
+            document.getElementById("modal-category").textContent = activeModalApp.category;
+            document.getElementById("modal-company").textContent = activeModalApp.company;
+            document.getElementById("modal-title").textContent = activeModalApp.title;
+            document.getElementById("modal-desc").textContent = activeModalApp.desc;
+
+            document.getElementById("modal-features").innerHTML = activeModalApp.features.map(f => `
+                <li class="flex items-start gap-2">
+                    <span class="text-flutter-sky font-bold">•</span>
+                    <span>${f}</span>
+                </li>
+            `).join('');
+
+            document.getElementById("modal-tech").innerHTML = activeModalApp.tech.map(t => `
+                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-xs text-flutter-sky font-mono border border-slate-700">${t}</span>
+            `).join('');
+
+            const btns = document.getElementById("modal-store-btns");
+            let btnsHtml = '';
+
+            if (activeModalApp.storeLinks.appStore) {
+                btnsHtml += `
+                    <a href="${activeModalApp.storeLinks.appStore}" target="_blank" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs flex items-center gap-2 border border-slate-700">
+                        <i class="fa-brands fa-apple text-base"></i> App Store
+                    </a>
+                `;
+            }
+            if (activeModalApp.storeLinks.playStore) {
+                btnsHtml += `
+                    <a href="${activeModalApp.storeLinks.playStore}" target="_blank" class="px-4 py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 font-bold text-xs flex items-center gap-2 border border-emerald-500/30">
+                        <i class="fa-brands fa-google-play text-base"></i> Google Play
+                    </a>
+                `;
+            }
+            if (!activeModalApp.storeLinks.appStore && !activeModalApp.storeLinks.playStore) {
+                btnsHtml += `<span class="text-xs text-slate-500 italic">Internal Enterprise POS / Hardware App</span>`;
+            }
+            btns.innerHTML = btnsHtml;
+
+            setModalImage(startImgIdx);
+            modal.classList.remove("hidden");
+            document.body.style.overflow = "hidden";
+        }
+
+        function setModalImage(idx) {
+            if (!activeModalApp) return;
+
+            const renderKey = activeModalApp.renderKeys[idx % activeModalApp.renderKeys.length];
+            const wrapper = document.getElementById("modal-frame-wrapper");
+
+            if (wrapper) {
+                if (activeModalApp.isLandscape) {
+                    wrapper.innerHTML = `
+                        <div class="phone-mockup-landscape scale-100 shadow-2xl">
+                            <div class="phone-notch"><div class="phone-camera"></div><div class="phone-speaker"></div></div>
+                            <div class="phone-screen relative overflow-hidden">
+                                ${renderScreenHtml(renderKey, activeModalApp.title, activeModalApp.color)}
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    wrapper.innerHTML = `
+                        <div class="phone-mockup phone-mockup-lg scale-90 sm:scale-100 shadow-2xl">
+                            <div class="phone-notch"><div class="phone-camera"></div><div class="phone-speaker"></div></div>
+                            <div class="phone-screen relative overflow-hidden">
+                                ${renderScreenHtml(renderKey, activeModalApp.title, activeModalApp.color)}
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+
+            const thumbsEl = document.getElementById("modal-thumbnails");
+            thumbsEl.innerHTML = activeModalApp.renderKeys.map((rk, i) => `
+                <button onclick="setModalImage(${i})" class="w-12 h-12 rounded-lg overflow-hidden border-2 transition-all shrink-0 ${i === idx ? 'border-flutter-sky scale-105 shadow-lg' : 'border-slate-800 opacity-60 hover:opacity-100'}">
+                    ${renderScreenHtml(rk, activeModalApp.title, activeModalApp.color)}
+                </button>
+            `).join('');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("app-modal");
+            modal.classList.add("hidden");
+            document.body.style.overflow = "auto";
+        }
+
+        /* ----------------------------------------------------
+           8. THEMES & UTILITIES
+        ---------------------------------------------------- */
+        function setTheme(theme) {
+            document.body.classList.remove('theme-neon', 'theme-light');
+            if (theme === 'neon') document.body.classList.add('theme-neon');
+            if (theme === 'light') document.body.classList.add('theme-light');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById("mobile-menu");
+            menu.classList.toggle("hidden");
+            menu.classList.toggle("flex");
+        }
+
+        function copyToClipboard(text, msg) {
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-5 py-2.5 rounded-2xl bg-flutter-sky text-slate-950 font-extrabold text-xs shadow-2xl animate-bounce';
+            toast.textContent = msg;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+        }
+
+        document.getElementById("mobile-menu-toggle").addEventListener("click", toggleMobileMenu);
+
+        const cursorGlow = document.getElementById("cursor-glow");
+        window.addEventListener("mousemove", (e) => {
+            if (cursorGlow) {
+                cursorGlow.style.left = `${e.clientX}px`;
+                cursorGlow.style.top = `${e.clientY}px`;
+            }
+        });
+
+        /* ----------------------------------------------------
+           9. INIT ON LOAD
+        ---------------------------------------------------- */
+        window.onload = function() {
+            typeEffect();
+            updateHeroSpotlight();
+            startHeroAutoScroll();
+            renderMarquees();
+            renderProjects('all');
+        };
+    </script>
+</body>
+</html>
